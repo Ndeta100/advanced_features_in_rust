@@ -28,6 +28,21 @@ fn main() {
     unsafe {
         println!("The absolute value of -3 is {}", abs(-3));
     }
+    //calling rust fn from other languages
+    #[no_mangle]
+    pub extern "C" fn call_from_c() {
+        println!("Just called a rust function from C");
+    }
+    //staric variables
+    static HELLO_ME: &str = "Hi";
+    println!("{}", HELLO_ME);
+    //Unsafe traits
+    unsafe trait Foo {
+        //Mehtod go here
+    }
+    unsafe impl Foo for i32 {
+        //Method
+    }
 }
 fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
     let len = slice.len();
