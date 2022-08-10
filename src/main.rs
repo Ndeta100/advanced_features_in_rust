@@ -1,6 +1,6 @@
 use core::{fmt, slice};
 use std::{
-    io::repeat,
+    fmt::Error,
     ops::{Add, Deref},
 };
 
@@ -159,6 +159,30 @@ fn main() {
         }
     }
     let w_vec = &*w;
+    //  USING NEWTYPES, ADVANCED TYPES
+    type Kilometer = i32;
+    let distance: Kilometer = 3894;
+    type Thunk = Box<dyn Fn() + Send + 'static>;
+    let f: Thunk = Box::new(|| println!("Hi"));
+    fn takes_long_type(f: Thunk) {
+        //snip
+    }
+    pub trait Write {
+        fn write(&mut self, buf: &[u8]) -> Result<usize, Error>;
+    }
+    //Won't compile
+    // impl<T> Option<T> {
+    //     pub fn unwrap(self) -> T {
+    //         match self {
+    //             Some(val) => val,
+    //             None => panic!("called  `Option::unwrap()` on a `None` value"),
+    //         }
+    //     }
+    // }
+    fn generics<T>(t: T) {
+        //
+    }
+    fn generics_1<T: ?Sized>(t: &T) {}
 }
 fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
     let len = slice.len();
