@@ -1,4 +1,5 @@
 use core::{fmt, slice};
+use proc_macro;
 use std::{
     fmt::Error,
     ops::{Add, Deref},
@@ -206,6 +207,26 @@ fn main() {
     fn return_closure_1() -> Box<dyn Fn(i32) -> i32> {
         Box::new(|x| x + 1)
     }
+    //MACROS
+    let V: Vec<u32> = vec![1, 2, 3];
+    #[macro_export]
+    macro_rules! vec  {
+        ($($x:expr),*) => {
+            {
+                let mut temp_vec=Vec::new();
+                $(
+                    temp_vec.push($x);
+                )*
+                //The expression above expands to this
+                //temp_vec.push(1)
+               // temp_vec.push(2)
+                //temp_vec.push(3)
+                temp_vec
+            }
+        };
+    }
+    // #[some_attribute]
+    //  pub fn some_name(input: TokenStream) -> TokenStream {}
 }
 fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
     let len = slice.len();
